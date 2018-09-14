@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Weather App</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <style type="text/css">
+        
+        body {
+            
+            font-family: 'Anton', serif;
+            background-color: #111111;
+            padding: none;
+            margin: none;
+        }
+            
+        .header {
+            margin: none;
+            font-weight: bolder;
+            font-size: 500%;
+            text-align: center;
+            vertical-align: middle;
+            padding: 2% 0 2% 0;
+            text-shadow: 4px 4px 2px #FFFF;
+            background-color: aliceblue;
+            background: url(images/background.jpg);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+         
+        }
+        
+        .topContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+              
+        }
+        
+        .entryBox {
+            font-size: 130%;
+            border: none;
+            background-color: darkgray;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            padding: 1em;
+            margin-top: 20px;
+            box-shadow: 0px 10px 10px #888888;
+            
+        }
+        .submitButton {
+            font-size: 130%;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            border: none;
+            background-color: dimgrey;
+            padding: 1em;
+            margin-top: 20px;
+            box-shadow: 10px 10px 10px #888888;
+        }
+        
+        .boxContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .infoBox {
+            width: 46%;
+            background: darkslategray;
+            border: 1px solid gray;
+            margin-top: 20px;
+            border-radius: 10px;
+            height: 400px;
+            box-shadow: 10px 10px 10px #888888;
+            min-width: 400px;
+        }
+        
+        #footer {
+            margin-top: 30px;
+            background: gray;
+            width: 100%;
+            height: 300px;
+            
+        }
+        
+    </style>
+    
+    
+</head>
+
+    <body>
+        
+        <div class="header">My Weather App</div>
+        <div class="topContainer">
+            <div class="enterCity"><input type="text" id="byCity" class="entryBox" placeholder="Enter City"><input type="button" id="submitCity" class="submitButton" value="Submit"></div>
+            <div class="enterZipCode"><input type="text" id="byZipCode" class="entryBox" placeholder="Enter Zip Code"><input type="button" id="submitZipCode" class="submitButton" value="Submit"></div>
+        </div>
+        <div class="boxContainer">
+            <div id="weatherBox" class="infoBox">weather</div>
+            <div class="infoBox">map</div>
+        </div>
+        <div id="footer"> dfdfd</div>
+
+        <script type="text/javascript">
+        document.getElementById("weatherBox").innerHTML = document.documentElement.clientWidth;
+        </script>
+        
+        
+        
+    
+        
+        
+        
+        
+    </body>
+</html>
