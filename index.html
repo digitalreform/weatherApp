@@ -1,23 +1,30 @@
+<?php
+
+$val = "&appid=877379cb968737c129369e614b7c1d95"
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>My Weather App</title>
-    
+
+
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <style type="text/css">
-        
         body {
-            
+
             font-family: 'Anton', serif;
-            background-color: #111111;
+            background-color: #76ABFF;
             padding: none;
             margin: none;
         }
-            
+
         .header {
             margin: none;
             font-weight: bolder;
+            color: #342A73;
             font-size: 500%;
             text-align: center;
             vertical-align: middle;
@@ -27,28 +34,30 @@
             background: url(images/background.jpg);
             background-size: 100% 100%;
             background-repeat: no-repeat;
-         
+            border-radius: 8px;
+
         }
-        
+
         .topContainer {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             width: 100%;
-              
+
         }
-        
+
         .entryBox {
             font-size: 130%;
             border: none;
-            background-color: darkgray;
+            background-color: #FFDFB6;
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
             padding: 1em;
             margin-top: 20px;
-            box-shadow: 0px 10px 10px #888888;
-            
+
+
         }
+
         .submitButton {
             font-size: 130%;
             border-bottom-right-radius: 5px;
@@ -57,62 +66,197 @@
             background-color: dimgrey;
             padding: 1em;
             margin-top: 20px;
-            box-shadow: 10px 10px 10px #888888;
+
         }
-        
+
         .boxContainer {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
         }
-        
+
         .infoBox {
-            width: 46%;
+            flex-grow: 1;
             background: darkslategray;
             border: 1px solid gray;
             margin-top: 20px;
             border-radius: 10px;
             height: 400px;
-            box-shadow: 10px 10px 10px #888888;
             min-width: 400px;
+            padding: 2%;
         }
-        
+
+        table {
+
+            line-height: 2em;
+        }
+        th {
+            font-weight: 100;
+            text-align: left;
+        }
+
+        td {
+            font-weight: 200;
+            text-align: right;
+        }
+
         #footer {
+            text-align: center;
             margin-top: 30px;
-            background: gray;
+            background: #5D4ACC;
             width: 100%;
             height: 300px;
-            
+            border-radius: 5px;
+
         }
-        
     </style>
-    
-    
+
+
 </head>
 
-    <body>
-        
-        <div class="header">My Weather App</div>
-        <div class="topContainer">
-            <div class="enterCity"><input type="text" id="byCity" class="entryBox" placeholder="Enter City"><input type="button" id="submitCity" class="submitButton" value="Submit"></div>
-            <div class="enterZipCode"><input type="text" id="byZipCode" class="entryBox" placeholder="Enter Zip Code"><input type="button" id="submitZipCode" class="submitButton" value="Submit"></div>
-        </div>
-        <div class="boxContainer">
-            <div id="weatherBox" class="infoBox">weather</div>
-            <div class="infoBox">map</div>
-        </div>
-        <div id="footer"> dfdfd</div>
+<body>
 
-        <script type="text/javascript">
-        document.getElementById("weatherBox").innerHTML = document.documentElement.clientWidth;
-        </script>
+    <div class="header">My Weather App</div>
+    <div class="topContainer">
+
+        <div class="enterCity">
+            <form>
+                <input type="text" id="byCity" class="entryBox" placeholder="Enter City">
+                <input type="button" id="submitCity" class="submitButton" value="Submit">
+            </form>
+            <div id="errorMsg"></div>
+        </div>
+        <div class="enterZipCode">
+            <form>
+                <input type="text" id="byZipCode" class="entryBox" placeholder="Enter Zip Code and Country Code">
+                <input type="button" id="submitZipCode" class="submitButton" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="boxContainer">
+        <div id="weatherBox" class="infoBox">
+
+            <table style="width:100%">
+                <tr>
+                    <th>City</th>
+                    <td id="myCityName"></td>
+                </tr>
+                <tr>
+                    <th>Condition</th>
+                    <td id="myCityCondition"></td>
+                </tr>
+                <tr>
+                    <th>Temperature</th>
+                    <td id="myCityTemp"></td>
+                </tr>
+                <tr>
+                    <th>Minimum/Maximum Temprature</th>
+                    <td id="myCityMinMax"></td>
+                </tr>
+                <tr>
+                    <th>Humidity</th>
+                    <td id="myCityHumidity"></td>
+                </tr>
+                <tr>
+                    <th>Wind</th>
+                    <td id="myCityWind"></td>
+                </tr>
+                <tr>
+                    <th>Clouds</th>
+                    <td id="myCityClouds"></td>
+                </tr>
+                <tr>
+                    <th>Rain</th>
+                    <td id="myCityRain"></td>
+                </tr>
+                <tr>
+                    <th>Sunrise</th>
+                    <td id="myCitySunrise"></td>
+                </tr>
+                <tr>
+                    <th>Sunset</th>
+                    <td id="myCitySunSet"></td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div id="mapBox" class="infoBox"><center>Map</center></div>
+    </div>
+    <div id="footer"><sub>This was a small challenge to do a weather app using API's in plain JavaScript, no frameworks, no libraries.<br>For Zip Code Search, you need to enter your Zip Code and your Country Code if outside of the US ie "0001,ZA". This is due to the API.<br><br><br> &copy; - Corrie</sub></div>
+
+
+
+    <script type="text/javascript">
+
+        function getWeatherData(locationData) {
+            var weatherhttp = new XMLHttpRequest();
+            weatherhttp.onreadystatechange = function() {
+                if (this.status == 404) {
+                    document.getElementById("errorMsg").innerHTML = "City not found ! Please try again.";
+                }
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("errorMsg").innerHTML = "";
+                    weatherData = JSON.parse(this.responseText);
+
+                    document.getElementById("myCityName").innerHTML = weatherData.name + ", " + weatherData.sys.country;
+                    document.getElementById("myCityCondition").innerHTML = weatherData.weather[0].description;
+                    document.getElementById("myCityTemp").innerHTML = Math.trunc(weatherData.main.temp - 273.15) + " &#176C";
+                    document.getElementById("myCityMinMax").innerHTML = Math.trunc(weatherData.main.temp_min - 273.15) + '/' + Math.trunc(weatherData.main.temp_max - 273.15) + " &#176C";
+                    document.getElementById("myCityHumidity").innerHTML = weatherData.main.humidity + "%";
+                    document.getElementById("myCityWind").innerHTML = weatherData.wind.speed + 'm/sec';
+                    document.getElementById("myCityClouds").innerHTML = weatherData.clouds.all + "%";
+                    if (typeof weatherData.rain === "undefined") {
+                    document.getElementById("myCityRain").innerHTML = "None";
+                    } else {
+                           document.getElementById("myCityRain").innerHTML = weatherData.rain["3h"].toFixed(2) + "mm/last 3 Hours";
+                    }
+                    document.getElementById("myCitySunrise").innerHTML = formatTime(weatherData.sys.sunrise) + " UTC";
+                    document.getElementById("myCitySunSet").innerHTML = formatTime(weatherData.sys.sunset) + " UTC";
+
+
+                    var map;
+                    map = new google.maps.Map(document.getElementById('mapBox'), {
+                        center: {
+                            lat: weatherData.coord.lat,
+                            lng: weatherData.coord.lon
+                        },
+                        zoom: 10
+                    });
+                }
+            };
+            weatherhttp.open("GET", ("http://api.openweathermap.org/data/2.5/weather?" + locationData + "&appid=877379cb968737c129369e614b7c1d95"), true);
+            weatherhttp.send();
+
+
+        }
+
+        function formatTime(epochTime) {
+            var date = new Date(epochTime * 1000);
+            var hours = date.getHours();
+            var minutes = "0" + date.getMinutes();
+            var seconds = "0" + date.getSeconds();
+            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            return formattedTime;
+        }
+
+
+        var weatherData = "";
         
-        
-        
-    
-        
-        
-        
-        
-    </body>
+       document.getElementById("submitCity").onclick = function() {
+            var cityName = document.getElementById("byCity").value;
+            getWeatherData("q=" + cityName + "&type=like");
+
+        }
+
+        document.getElementById("submitZipCode").onclick = function() {
+            var cityZipCode = document.getElementById("byZipCode").value;
+            getWeatherData("&zip=" + cityZipCode);
+        };
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoaKMXSDkqPI6hMAP9pMFfNpRXZ9gQQzI" type="text/javascript">
+    </script>
+
+</body>
 </html>
